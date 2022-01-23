@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const config = require("./src/utils/config");
 const { errorHandler, unknownEndpoint } = require("./src/utils/middlewares");
 const cors = require("cors");
-// const Message = require("./src/models/message");
+const usersRouter = require("./src/routes/user") 
 
 const app = express();
 app.use(cors());
@@ -21,6 +21,8 @@ mongoose
     console.log(error);
   });
 
+app.use('/api/users', usersRouter)
+ 
 app.use(unknownEndpoint);
 app.use(errorHandler);
 
