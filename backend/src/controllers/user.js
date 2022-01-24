@@ -18,7 +18,6 @@ const getUser = async (req, res, next) => {
 
 const createUser = async (req, res, next) => {
   const { username, password } = req.body;
-  console.log(usernameRegExr.test(username))
   if(!usernameRegExr.test(username)) {
     return res.status(401).json({message: "Invalid username"});
   }
