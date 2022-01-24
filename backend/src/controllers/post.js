@@ -41,4 +41,32 @@ const getImage = async (req, res) => {
   }
 };
 
-module.exports = { createPost, getPosts, getImage };
+const likePost = async (req, res, next) => {
+  try {
+    const likedPost = await Post.findByIdAndUpdate(
+      new ObjectId(req.params.postId),
+      { $inc: { likes: 1 } },
+    );
+    if (!likedPost) return res.status(401).json({ message: "Post not founds" });
+    res.status(200).json({ message: "liked" });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+const dislikePost = async (req, res, next) => {
+  try {
+    const likedPost = await Post.findByIdAndUpdate(
+      new ObjectId(req.params.postId),
+      { $inc: { likes: -1 } },
+    );
+    if (!likedPost) return res.status(401).json({ message: "Post not founds" });
+    res.status(200).json({ message: "disliked" });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+module.exports = { createPost, getPosts, getImage, likePost, dislikePost };
