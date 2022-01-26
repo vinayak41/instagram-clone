@@ -1,0 +1,52 @@
+@import "../../sass/variables";
+
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+
+.form {
+  width: 100%;
+  border: 1px solid $border-color;
+  border-radius: 3px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  .instagramLogo {
+    width: 80%;
+    margin: auto;
+  }
+  padding: 0 40px;
+
+  .otherOptions {
+    font-size: 14px;
+    line-height: 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1rem 0rem 1.5rem;
+    & span {
+      margin-left: 5px;
+      color: $link-color;
+    }
+  }
+}
+
+.formFooter {
+  width: 100%;
+  border: 1px solid $border-color;
+  border-radius: 3px;
+  background-color: white;
+  padding: 10px;
+  margin-top: 1rem;
+  & p {
+    margin: 15px auto;
+    text-align: center;
+  }
+  & a {
+    color: $link-color;
+    text-decoration: none;
+  }
+}
