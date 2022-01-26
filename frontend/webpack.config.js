@@ -1,10 +1,17 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
+const webpack = require("webpack")
 
 module.exports = {
   entry: path.join(__dirname, "src", "index.js"),
   output: {
     path: path.resolve(__dirname, "dist"),
+    publicPath: "/",
+    filename: "bundle.js",
+    clean: "true"
+  },
+  resolve: {
+    extensions: [".js", ".jsx", "css", "scss"],
   },
   module: {
     rules: [
@@ -35,18 +42,8 @@ module.exports = {
         use: ["source-map-loader"],
       },
       {
-        test: /\.scss$/,
-        use: [
-          {
-            loader: "style-loader",
-          },
-          {
-            loader: "css-loader",
-          },
-          {
-            loader: "sass-loader",
-          },
-        ],
+        test: /\.s[ac]ss$/i,
+        use: ["style-loader", "css-loader", "sass-loader", "postcss-loader"],
       },
     ],
   },
@@ -57,5 +54,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "public", "index.html"),
     }),
+    new webpack.HotModuleReplacementPlugin(),
   ],
 };

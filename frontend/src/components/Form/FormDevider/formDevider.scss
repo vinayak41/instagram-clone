@@ -1,0 +1,17 @@
+@import "../../../sass/variables";
+
+.formDevider {
+  margin: 10px 0px 18px;
+  display: flex;
+  .line {
+    flex-grow: 1;
+    height: 2px;
+    background-color: $border-color;
+    margin: auto;
+  }
+  .text {
+    margin: 0 1rem;
+    font-size: 10px;
+    color: gray;
+  }
+}
