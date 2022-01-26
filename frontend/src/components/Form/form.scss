@@ -1,4 +1,4 @@
-@import "../../../sass/variables";
+@import "../../sass/variables";
 
 .formContainer {
   display: flex;
@@ -6,7 +6,7 @@
   width: 350px;
 }
 
-.loginform {
+.form {
   width: 100%;
   border: 1px solid $border-color;
   border-radius: 3px;
@@ -20,7 +20,7 @@
   }
   padding: 0 40px;
 
-  .otherLoginOption {
+  .otherOptions {
     font-size: 14px;
     line-height: 18px;
     display: flex;
