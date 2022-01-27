@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoginForm from "../../components/Form/LoginForm";
+import Navabr from "../../components/Navbar/Navabr";
 import { loginSuccess } from "../../redux/actions/userActions";
 import "./home.scss";
 
@@ -17,7 +18,13 @@ const Home = () => {
   }, []);
   return (
     <div className="home">
-      {!isAuthenticated ? <LoginForm /> : <div>Feed</div>}
+      {!isAuthenticated ? (
+        <LoginForm />
+      ) : (
+        <>
+          <Navabr />
+        </>
+      )}
     </div>
   );
 };
