@@ -25,8 +25,6 @@ const LoginForm = () => {
     }));
   };
 
-  console.log(formData);
-
   const handleSubmit = (event) => {
     event.preventDefault();
     dispatch(loginRequest(formData));

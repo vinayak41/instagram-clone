@@ -3,6 +3,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import LoginForm from "../../components/Form/LoginForm";
 import Navabr from "../../components/Navbar/Navabr";
+import Posts from "../../components/Posts/Posts";
+import { getAllPosts } from "../../redux/actions/postActions";
 import { loginSuccess } from "../../redux/actions/userActions";
 import "./home.scss";
 
@@ -16,14 +18,22 @@ const Home = () => {
       dispatch(loginSuccess(user));
     }
   }, []);
+
+  useEffect(() => {
+    if(isAuthenticated) {
+      dispatch(getAllPosts())
+    }
+  }, [isAuthenticated])
+  
   return (
     <div className="home">
       {!isAuthenticated ? (
         <LoginForm />
       ) : (
-        <>
+        <div className="main">
           <Navabr />
-        </>
+          <Posts />
+        </div>
       )}
     </div>
   );

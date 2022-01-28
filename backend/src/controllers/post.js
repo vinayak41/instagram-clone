@@ -20,7 +20,7 @@ const createPost = async (req, res) => {
 
 const getPosts = async (req, res) => {
   try {
-    const allPosts = await Post.find({});
+    const allPosts = await Post.find({}).populate("postBy", {username: 1, id: 1});
     res.status(200).json(allPosts);
   } catch (error) {
     console.log(error);
@@ -42,14 +42,12 @@ const getImage = async (req, res) => {
 };
 
 const likePost = async (req, res, next) => {
-  console.log(req.userId);
   try {
     const likedPost = await Post.findByIdAndUpdate(
       new ObjectId(req.params.postId),
       { $addToSet: { likes: req.userId } },
       { new: true }
     );
-    console.log(likedPost);
     if (!likedPost) return res.status(401).json({ message: "Post not founds" });
     res.status(200).json({ message: "liked" });
   } catch (error) {
