@@ -3,6 +3,7 @@ import {
   DISLIKE_POST,
   GET_ALL_POSTS,
   LIKE_POST,
+  POST_COMMENT,
   SET_ALL_POSTS,
 } from "../typeConstants/postTypeConstants";
 
@@ -36,6 +37,13 @@ export const likePost = (postId) => {
 export const dislikePost = (postId) => {
   return {
     type: DISLIKE_POST,
-    payload: postId
-  }
-}
+    payload: postId,
+  };
+};
+
+export const postComment = (data) => {
+  return {
+    type: POST_COMMENT,
+    payload: data,
+  };
+};

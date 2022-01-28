@@ -7,6 +7,7 @@ import {
   DISLIKE_POST,
   GET_ALL_POSTS,
   LIKE_POST,
+  POST_COMMENT,
 } from "../typeConstants/postTypeConstants";
 import { getToken } from "../../utils/helper";
 
@@ -74,9 +75,26 @@ function* dislikePost(action) {
   }
 }
 
+function* postComment(action) {
+  try {
+    const token = yield call(getToken);
+    yield call(axios, {
+      method: "PATCH",
+      url: `${POST_API}/comment/${action.payload.postId}`,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+      data: { text: action.payload.text },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default function* userSaga() {
   yield takeEvery(GET_ALL_POSTS, getAllPosts);
   yield takeEvery(CREATE_POST, createPost);
   yield takeEvery(LIKE_POST, likePost);
   yield takeEvery(DISLIKE_POST, dislikePost);
+  yield takeEvery(POST_COMMENT, postComment);
 }

@@ -20,7 +20,10 @@ const createPost = async (req, res) => {
 
 const getPosts = async (req, res) => {
   try {
-    const allPosts = await Post.find({}).populate("postBy", {username: 1, id: 1});
+    const allPosts = await Post.find({}).populate("postBy", {
+      username: 1,
+      id: 1,
+    });
     res.status(200).json(allPosts);
   } catch (error) {
     console.log(error);
@@ -71,4 +74,22 @@ const dislikePost = async (req, res, next) => {
   }
 };
 
-module.exports = { createPost, getPosts, getImage, likePost, dislikePost };
+const comment = async (req, res, next) => {
+  try {
+    await Post.findByIdAndUpdate(new ObjectId(req.params.postId), {
+      $push: { comments: { commentBy: req.userId, text: req.body.text } },
+    });
+    res.status(200).json({ status: "ok" });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = {
+  createPost,
+  getPosts,
+  getImage,
+  likePost,
+  dislikePost,
+  comment,
+};

@@ -6,10 +6,15 @@ import { FiHeart, FiSend } from "react-icons/fi";
 import { FaHeart } from "react-icons/fa";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { dislikePost, likePost } from "../../../redux/actions/postActions";
+import {
+  dislikePost,
+  likePost,
+  postComment,
+} from "../../../redux/actions/postActions";
 
 const Post = ({ post }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
+  const [newComment, setNewComment] = useState("");
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const handleImageLoad = () => {
@@ -20,6 +25,16 @@ const Post = ({ post }) => {
   };
   const handelDislikePost = () => {
     dispatch(dislikePost(post._id));
+  };
+  const handleCommentChange = (evnet) => {
+    setNewComment(event.target.value);
+  };
+  const handleCommentPost = (event) => {
+    event.preventDefault();
+    if (newComment) {
+      dispatch(postComment({ postId: post._id, text: newComment }));
+      setNewComment("")
+    }
   };
   return (
     <div className="post">
@@ -37,7 +52,6 @@ const Post = ({ post }) => {
       />
       <div className="buttons">
         <div>
-          {/* <FiHeart size={23} onClick={handleLikePost} /> */}
           {post.likes.includes(user.id) ? (
             <FaHeart
               className="liked-button"
@@ -55,7 +69,18 @@ const Post = ({ post }) => {
         </div>
       </div>
       <div className="footer"></div>
-      <div className="writeComment"></div>
+      <form className="writeComment" onSubmit={handleCommentPost}>
+        <textarea
+          value={newComment}
+          name="comment"
+          placeholder="Add a comment..."
+          rows={1}
+          onChange={handleCommentChange}
+        />
+        <button type="submit" className="post-comment-btn">
+          Post
+        </button>
+      </form>
     </div>
   );
 };
