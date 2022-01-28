@@ -2,28 +2,13 @@ import axios from "axios";
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { POST_API } from "../../utils/api";
 import { setAllPosts } from "../actions/postActions";
-import { CREATE_POST, GET_ALL_POSTS } from "../typeConstants/postTypeConstants";
-
-// function* signup(action) {
-//   try {
-//     const response = yield call(axios, {
-//       method: "post",
-//       url: `${USER_API}/register`,
-//       data: action.payload,
-//     });
-//     yield put(signupSuccess());
-//   } catch (error) {
-//     if (error.response?.data?.message) {
-//       yield put(signupFailed(error.response.data.message));
-//     } else {
-//       yield put(signupFailed("Signup failed"));
-//     }
-//   }
-// }
-
-function getToken() {
-  return JSON.parse(localStorage.getItem("instagram-user")).token;
-}
+import {
+  CREATE_POST,
+  DISLIKE_POST,
+  GET_ALL_POSTS,
+  LIKE_POST,
+} from "../typeConstants/postTypeConstants";
+import { getToken } from "../../utils/helper";
 
 function* getAllPosts() {
   try {
@@ -59,7 +44,39 @@ function* createPost(action) {
   }
 }
 
+function* likePost(action) {
+  try {
+    const token = yield call(getToken);
+    yield call(axios, {
+      method: "PATCH",
+      url: `${POST_API}/like/${action.payload}`,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* dislikePost(action) {
+  try {
+    const token = yield call(getToken);
+    yield call(axios, {
+      method: "PATCH",
+      url: `${POST_API}/dislike/${action.payload}`,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default function* userSaga() {
   yield takeEvery(GET_ALL_POSTS, getAllPosts);
   yield takeEvery(CREATE_POST, createPost);
+  yield takeEvery(LIKE_POST, likePost);
+  yield takeEvery(DISLIKE_POST, dislikePost);
 }
