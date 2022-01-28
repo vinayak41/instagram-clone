@@ -42,11 +42,14 @@ const getImage = async (req, res) => {
 };
 
 const likePost = async (req, res, next) => {
+  console.log(req.userId);
   try {
     const likedPost = await Post.findByIdAndUpdate(
       new ObjectId(req.params.postId),
-      { $inc: { likes: 1 } },
+      { $addToSet: { likes: req.userId } },
+      { new: true }
     );
+    console.log(likedPost);
     if (!likedPost) return res.status(401).json({ message: "Post not founds" });
     res.status(200).json({ message: "liked" });
   } catch (error) {
@@ -59,9 +62,10 @@ const dislikePost = async (req, res, next) => {
   try {
     const likedPost = await Post.findByIdAndUpdate(
       new ObjectId(req.params.postId),
-      { $inc: { likes: -1 } },
+      { $pull: { likes: req.userId } },
+      { new: true }
     );
-    if (!likedPost) return res.status(401).json({ message: "Post not founds" });
+    if (!likedPost) return res.status(401).json({ message: "Post not found" });
     res.status(200).json({ message: "disliked" });
   } catch (error) {
     console.log(error);
