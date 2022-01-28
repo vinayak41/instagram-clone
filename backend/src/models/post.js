@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const postSchema = new mongoose.Schema({
   postBy: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
   images: [String],
-  likes: { type: Number, default: 0 },
+  likes: Array,
   comments: [String],
   caption: String
 });

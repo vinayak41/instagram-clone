@@ -1,0 +1,54 @@
+@import "../../../sass/variables";
+
+.post {
+  width: 100%;
+  border: 1px solid $gray;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+  background-color: white;
+  border-radius: 3px;
+
+  .header {
+    width: 100%;
+    height: 60px;
+    padding-left: 16px;
+    padding-right: 16px;
+    display: flex;
+    align-items: center;
+
+    .username-and-image-wrapper {
+      display: flex;
+      align-items: center;
+
+      .default-user-icon {
+        border-radius: 50%;
+        color: white;
+        background-color: $gray;
+        padding: 2px;
+        margin-right: 1rem;
+      }
+    }
+  }
+
+  .imageSkeleton {
+    width: 100%;
+    height: 25rem;
+    display: flex;
+    background-color: $gray;
+  }
+
+  img {
+    width: 100%;
+  }
+
+  .buttons {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem 0 1rem 1rem;
+
+    & div > * {
+      margin-right: 1rem;
+    }
+  }
+}

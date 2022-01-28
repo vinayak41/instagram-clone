@@ -20,7 +20,7 @@ const createPost = async (req, res) => {
 
 const getPosts = async (req, res) => {
   try {
-    const allPosts = await Post.find({});
+    const allPosts = await Post.find({}).populate("postBy", {username: 1, id: 1});
     res.status(200).json(allPosts);
   } catch (error) {
     console.log(error);
@@ -45,7 +45,8 @@ const likePost = async (req, res, next) => {
   try {
     const likedPost = await Post.findByIdAndUpdate(
       new ObjectId(req.params.postId),
-      { $inc: { likes: 1 } },
+      { $addToSet: { likes: req.userId } },
+      { new: true }
     );
     if (!likedPost) return res.status(401).json({ message: "Post not founds" });
     res.status(200).json({ message: "liked" });
@@ -59,9 +60,10 @@ const dislikePost = async (req, res, next) => {
   try {
     const likedPost = await Post.findByIdAndUpdate(
       new ObjectId(req.params.postId),
-      { $inc: { likes: -1 } },
+      { $pull: { likes: req.userId } },
+      { new: true }
     );
-    if (!likedPost) return res.status(401).json({ message: "Post not founds" });
+    if (!likedPost) return res.status(401).json({ message: "Post not found" });
     res.status(200).json({ message: "disliked" });
   } catch (error) {
     console.log(error);

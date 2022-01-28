@@ -8,7 +8,7 @@
 
 .form {
   width: 100%;
-  border: 1px solid $border-color;
+  border: 1px solid $gray;
   border-radius: 3px;
   background-color: white;
   display: flex;
@@ -32,11 +32,19 @@
       color: $link-color;
     }
   }
+
+  .errorMessage {
+    color: #ec4856;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 100;
+    margin-bottom: 1rem;
+  }
 }
 
 .formFooter {
   width: 100%;
-  border: 1px solid $border-color;
+  border: 1px solid $gray;
   border-radius: 3px;
   background-color: white;
   padding: 10px;
