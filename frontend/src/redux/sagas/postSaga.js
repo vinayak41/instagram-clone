@@ -2,7 +2,7 @@ import axios from "axios";
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { POST_API } from "../../utils/api";
 import { setAllPosts } from "../actions/postActions";
-import { GET_ALL_POSTS } from "../typeConstants/postTypeConstants";
+import { CREATE_POST, GET_ALL_POSTS } from "../typeConstants/postTypeConstants";
 
 // function* signup(action) {
 //   try {
@@ -28,7 +28,7 @@ function getToken() {
 function* getAllPosts() {
   try {
     const token = yield call(getToken);
-    console.log(token)
+    console.log(token);
     const response = yield call(axios, {
       method: "GET",
       url: `${POST_API}`,
@@ -36,7 +36,24 @@ function* getAllPosts() {
         authorization: `Bearer ${token}`,
       },
     });
-    yield put(setAllPosts(response.data))
+    yield put(setAllPosts(response.data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+function* createPost(action) {
+  try {
+    const token = yield call(getToken);
+    const response = yield call(axios, {
+      method: "POST",
+      url: `${POST_API}`,
+      headers: {
+        authorization: `Bearer ${token}`,
+        "Content-Type": "multipart/form-data",
+      },
+      data: action.payload,
+    });
   } catch (error) {
     console.log(error);
   }
@@ -44,4 +61,5 @@ function* getAllPosts() {
 
 export default function* userSaga() {
   yield takeEvery(GET_ALL_POSTS, getAllPosts);
+  yield takeEvery(CREATE_POST, createPost);
 }

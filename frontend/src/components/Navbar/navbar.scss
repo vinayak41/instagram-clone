@@ -25,7 +25,7 @@
     & > input {
       width: 268px;
       height: 36px;
-      background-color: #EFEEEE;
+      background-color: #efeeee;
       border: none;
       border-radius: 8px;
       font-weight: 100;
@@ -49,7 +49,8 @@
 
   .buttons {
     margin: auto;
-    & > * {
+    
+    & > .button {
       margin: 10px;
     }
 

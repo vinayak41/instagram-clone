@@ -6,6 +6,7 @@ import { MdOutlineAddBox } from "react-icons/md";
 import { IoIosCompass } from "react-icons/io";
 import { FiHeart } from "react-icons/fi";
 import { FaUserAlt } from "react-icons/fa";
+import CreatePost from "../CreatePost/CreatePost";
 
 const Navabr = () => {
   return (
@@ -18,11 +19,12 @@ const Navabr = () => {
           <input type="text" className="search" placeholder="Search" />
         </div>
         <div className="buttons">
-          <AiFillHome size={26} />
-          <MdOutlineAddBox size={26} />
-          <IoIosCompass size={26} />
-          <FiHeart size={26} />
-          <FaUserAlt className="default-user-icon" size={26} />
+          <AiFillHome className="button" size={26} />
+          {/* <MdOutlineAddBox size={26} /> */}
+          <CreatePost />
+          <IoIosCompass className="button" size={26} />
+          <FiHeart className="button" size={26} />
+          <FaUserAlt  className="default-user-icon button" size={26} />
         </div>
       </div>
     </div>
