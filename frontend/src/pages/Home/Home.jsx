@@ -34,7 +34,6 @@ const Home = () => {
         <div className="main">
           <Navabr />
           <Posts />
-          <Modal />
         </div>
       )}
     </div>

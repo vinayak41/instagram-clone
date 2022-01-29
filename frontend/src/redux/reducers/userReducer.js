@@ -29,9 +29,12 @@ export default (state = initialState, action) => {
         error: null,
       };
     case LOGIN_SUCCESS:
+      console.log(action.payload)
       return {
         ...state,
         isAuthenticated: true,
+        username: action.payload.user.username,
+        id: action.payload.user.id
       };
     default:
       return state;
