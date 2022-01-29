@@ -15,6 +15,7 @@ import {
 const Post = ({ post }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
   const [newComment, setNewComment] = useState("");
+  const [showComments, setShowComments] = useState(false);
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
   const handleImageLoad = () => {
@@ -33,9 +34,15 @@ const Post = ({ post }) => {
     event.preventDefault();
     if (newComment) {
       dispatch(postComment({ postId: post._id, text: newComment }));
-      setNewComment("")
+      setNewComment("");
     }
   };
+  const handleShowComments = () => {
+    setShowComments(true);
+  };
+  const handleHideComments = () => {
+    setShowComments(false)
+  }
   return (
     <div className="post">
       <div className="header">
@@ -68,7 +75,34 @@ const Post = ({ post }) => {
           <FaRegBookmark size={23} />
         </div>
       </div>
-      <div className="footer"></div>
+      <div className="footer">
+        <p className="likes-count">{post.likes.length} likes</p>
+        {post.caption ? (
+          <p className="caption">
+            <span>{post.postBy.username}</span>
+            &nbsp; {post.caption}
+          </p>
+        ) : null}
+        {post.comments.length > 0  ? (
+          <>
+            {" "}
+            <p className="comments-count" onClick={handleShowComments}>
+              View all {post.comments.length} comments
+            </p>
+            {showComments ? (
+              <div className="comments">
+                <p className="hide-comments" onClick={handleHideComments}>Hide Comments</p>{" "}
+                {post.comments.map((comment) => (
+                  <p className="comment">
+                    <span>{comment.commentBy.username}</span>
+                    {comment.text}
+                  </p>
+                ))}{" "}
+              </div>
+            ) : null}
+          </>
+        ) : null}
+      </div>
       <form className="writeComment" onSubmit={handleCommentPost}>
         <textarea
           value={newComment}

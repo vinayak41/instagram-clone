@@ -17,7 +17,6 @@
     align-items: center;
     border-bottom: 1px solid $gray;
 
-
     .username-and-image-wrapper {
       display: flex;
       align-items: center;
@@ -54,7 +53,41 @@
     }
 
     .liked-button {
-      color: #EC4957;
+      color: #ec4957;
+    }
+  }
+
+  .footer {
+    padding: 0rem 1rem 1rem 1rem;
+
+    .likes-count {
+      font-weight: bold;
+    }
+
+    .caption {
+      font-weight: 100;
+
+      span {
+        font-weight: bold;
+      }
+    }
+
+    .comments-count {
+      color: #8e8e8e;
+    }
+
+    .comments {
+      .hide-comments {
+        color: #8e8e8e;
+      }
+      .comment {
+        font-weight: 100;
+
+        span {
+          font-weight: bold;
+          margin-right: 10px;
+        }
+      }
     }
   }
 
@@ -73,15 +106,15 @@
       font-size: 1rem;
       border: none;
       resize: none;
-       &:focus {
-         outline: none;
-       }
+      &:focus {
+        outline: none;
+      }
     }
 
     .post-comment-btn {
       background-color: transparent;
       font-size: 15px;
-      color: #0195F7;
+      color: #0195f7;
       border: none;
     }
   }

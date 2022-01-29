@@ -20,11 +20,27 @@ const createPost = async (req, res) => {
 
 const getPosts = async (req, res) => {
   try {
-    const allPosts = await Post.find({}).populate("postBy", {
-      username: 1,
-      id: 1,
-    });
+    const allPosts = await Post.find({})
+      .populate("postBy", {
+        username: 1,
+        id: 1,
+      })
+      .populate("comments.commentBy", { username: 1 });
     res.status(200).json(allPosts);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const getPost = async (req, res) => {
+  try {
+    const post = await Post.findById(new ObjectId(req.params.postId))
+      .populate("postBy", {
+        username: 1,
+        id: 1,
+      })
+      .populate("comments.commentBy", { username: 1 });
+    res.status(200).json(post);
   } catch (error) {
     console.log(error);
   }
@@ -92,4 +108,5 @@ module.exports = {
   likePost,
   dislikePost,
   comment,
+  getPost,
 };

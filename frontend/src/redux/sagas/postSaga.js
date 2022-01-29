@@ -1,11 +1,12 @@
 import axios from "axios";
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import { POST_API } from "../../utils/api";
-import { setAllPosts } from "../actions/postActions";
+import { getPostSuccess, setAllPosts } from "../actions/postActions";
 import {
   CREATE_POST,
   DISLIKE_POST,
   GET_ALL_POSTS,
+  GET_POST,
   LIKE_POST,
   POST_COMMENT,
 } from "../typeConstants/postTypeConstants";
@@ -91,10 +92,27 @@ function* postComment(action) {
   }
 }
 
+function* getPost(action) {
+  try {
+    const token = yield call(getToken);
+    const response = yield call(axios, {
+      method: "GET",
+      url: `${POST_API}/${action.payload}`,
+      headers: {
+        authorization: `Bearer ${token}`,
+      },
+    });
+    yield put(getPostSuccess(response.data));
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export default function* userSaga() {
   yield takeEvery(GET_ALL_POSTS, getAllPosts);
   yield takeEvery(CREATE_POST, createPost);
   yield takeEvery(LIKE_POST, likePost);
   yield takeEvery(DISLIKE_POST, dislikePost);
   yield takeEvery(POST_COMMENT, postComment);
+  yield takeEvery(GET_POST, getPost);
 }

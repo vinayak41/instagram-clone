@@ -2,6 +2,8 @@ import {
   CREATE_POST,
   DISLIKE_POST,
   GET_ALL_POSTS,
+  GET_POST,
+  GET_POST_SUCCESS,
   LIKE_POST,
   POST_COMMENT,
   SET_ALL_POSTS,
@@ -45,5 +47,19 @@ export const postComment = (data) => {
   return {
     type: POST_COMMENT,
     payload: data,
+  };
+};
+
+export const getPost = (postId) => {
+  return {
+    type: GET_POST,
+    payload: postId,
+  };
+};
+
+export const getPostSuccess = (post) => {
+  return {
+    type: GET_POST_SUCCESS,
+    payload: post,
   };
 };

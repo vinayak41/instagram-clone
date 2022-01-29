@@ -7,6 +7,7 @@ const {
   likePost,
   dislikePost,
   comment,
+  getPost,
 } = require("../controllers/post");
 const { upload, requireLogin } = require("../utils/middlewares");
 
@@ -16,4 +17,5 @@ router.get("/", requireLogin, getPosts);
 router.patch("/like/:postId", requireLogin, likePost);
 router.patch("/dislike/:postId", requireLogin, dislikePost);
 router.patch("/comment/:postId", requireLogin, comment);
+router.get("/:postId", requireLogin, getPost);
 module.exports = router;

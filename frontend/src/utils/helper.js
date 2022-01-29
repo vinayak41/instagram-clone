@@ -5,3 +5,8 @@ export const getToken = () => {
 export const getUserId = () => {
   return JSON.parse(localStorage.getItem("instagram-user"))?.user?.id;
 }
+
+export const getUsername = () => {
+  return JSON.parse(localStorage.getItem("instagram-user"))?.user?.username;
+}
+
