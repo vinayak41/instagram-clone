@@ -1,0 +1,10 @@
+.profile {
+  max-width: 900px;
+  margin: auto;
+  .posts-wrapper {
+    margin-top: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+  }
+}

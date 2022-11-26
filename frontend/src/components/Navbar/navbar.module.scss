@@ -1,11 +1,11 @@
-@import "../../sass/variables";
+@import "@sass/variables";
 
 .navbar {
   width: 100%;
   height: 3.5rem;
   display: flex;
   justify-content: space-evenly;
-  position: absolute;
+  position: sticky;
   top: 0;
   left: 0;
   overflow: hidden;
@@ -49,10 +49,9 @@
 
   .buttons {
     margin: auto;
-    
-    & > .button {
-      margin: 10px;
-    }
+    display: flex;
+    align-items: center;
+    gap: 20px;
 
     .default-user-icon {
       border-radius: 50%;
