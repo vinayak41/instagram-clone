@@ -6,6 +6,7 @@ import { MdOutlineAddBox } from "react-icons/md";
 import { useState } from "react";
 import { IoMdImages, IoMdArrowRoundBack } from "react-icons/io";
 import { createPost } from "../../redux/actions/postActions";
+import { useEffect } from "react";
 
 const CreatePost = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,6 +29,9 @@ const CreatePost = () => {
   };
   const handleClose = () => {
     setIsOpen(false);
+    setImage("")
+    setCaption("")
+    setImageFile("")
   };
 
   const handleOnBackPress = () => {

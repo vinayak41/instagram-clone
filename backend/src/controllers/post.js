@@ -24,7 +24,7 @@ const getPosts = async (req, res) => {
   page = page > 0 ? page : 1;
   try {
     const totalPosts = await Post.countDocuments({});
-    const totalPages = totalPosts / postsPerPage;
+    const totalPages = Math.ceil(totalPosts / postsPerPage);
     const allPosts = await Post.find(
       {},
       {},

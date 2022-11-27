@@ -1,22 +1,32 @@
 import { getUserId, getUsername } from "../../utils/helper";
 import {
   DISLIKE_POST,
+  GET_ALL_POSTS,
   GET_POST_SUCCESS,
   LIKE_POST,
   POST_COMMENT,
   SET_ALL_POSTS,
 } from "../typeConstants/postTypeConstants";
 
-const initialState = { allPosts: [] };
+const initialState = { feed: { posts: [], username: null }, loading: null };
 export default (state = initialState, action) => {
   const userId = getUserId();
   const username = getUsername();
   let updatedPosts;
   switch (action.type) {
+    case GET_ALL_POSTS:
+      return {
+        ...state,
+        loading: true,
+      };
     case SET_ALL_POSTS:
       return {
         ...state,
-        allPosts: action.payload,
+        feed: {
+          ...action.payload,
+          posts: [...state.feed.posts, ...action.payload.posts],
+        },
+        loading: false,
       };
     case LIKE_POST:
       updatedPosts = state.allPosts.map((post) => {

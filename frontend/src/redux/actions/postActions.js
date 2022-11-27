@@ -9,13 +9,14 @@ import {
   SET_ALL_POSTS,
 } from "../typeConstants/postTypeConstants";
 
-export const getAllPosts = () => {
+export const getPosts = (data) => {
   return {
     type: GET_ALL_POSTS,
+    payload: data
   };
 };
 
-export const setAllPosts = (posts) => {
+export const setPosts = (posts) => {
   return {
     type: SET_ALL_POSTS,
     payload: posts,

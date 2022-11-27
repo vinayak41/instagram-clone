@@ -11,6 +11,7 @@ import {
   likePost,
   postComment,
 } from "../../../redux/actions/postActions";
+import { Link } from "react-router-dom";
 
 const Post = ({ post }) => {
   const [isImageLoaded, setIsImageLoaded] = useState(false);
@@ -46,10 +47,10 @@ const Post = ({ post }) => {
   return (
     <div className="post">
       <div className="header">
-        <div className="username-and-image-wrapper">
+        <Link to={`/${post.postBy.username}`} className="username-and-image-wrapper">
           <FaUserAlt className="default-user-icon" size={26} />
           <span>{post.postBy.username}</span>
-        </div>
+        </Link >
       </div>
       {!isImageLoaded ? <div className="imageSkeleton"></div> : null}
       <img
