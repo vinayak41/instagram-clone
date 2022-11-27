@@ -19,14 +19,30 @@ const createPost = async (req, res) => {
 };
 
 const getPosts = async (req, res) => {
+  const postsPerPage = 5;
+  let { page } = req.query;
+  page = page > 0 ? page : 1;
   try {
-    const allPosts = await Post.find({})
+    const totalPosts = await Post.countDocuments({});
+    const totalPages = totalPosts / postsPerPage;
+    const allPosts = await Post.find(
+      {},
+      {},
+      { skip: (page - 1) * postsPerPage, limit: postsPerPage }
+    )
       .populate("postBy", {
         username: 1,
         id: 1,
       })
       .populate("comments.commentBy", { username: 1 });
-    res.status(200).json(allPosts);
+    res
+      .status(200)
+      .json({
+        posts: allPosts,
+        total_pages: totalPages,
+        page_size: postsPerPage,
+        page: page,
+      });
   } catch (error) {
     console.log(error);
   }

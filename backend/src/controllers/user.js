@@ -3,6 +3,7 @@ const bcrypt = require("bcrypt");
 const { JWT_SECRET } = require("../utils/config");
 const jwt = require("jsonwebtoken");
 const { usernameRegExr } = require("../utils/helper");
+const Post = require("../models/post");
 
 const saltRounds = 10;
 
@@ -75,4 +76,20 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { getUser, createUser, login };
+const getUserProfile = async (req, res, next) => {
+  const { username } = req.params;
+  try {
+    const user = await User.findOne({ username });
+    const postCount = await Post.countDocuments({ postBy: user._id });
+    const posts = await Post.find({ postBy: user._id });
+    res.json({
+      user,
+      post_count: postCount,
+      posts,
+    });
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { getUser, createUser, login, getUserProfile };

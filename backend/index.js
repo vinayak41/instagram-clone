@@ -10,7 +10,7 @@ const { upload } = require("./src/utils/middlewares");
 const app = express();
 app.use(cors());
 app.use(express.json({limit: '50mb'}));
-app.use(express.urlencoded({limit: '50mb'}));
+app.use(express.urlencoded({limit: '50mb', extented: true}));
 
 let gfs;
 mongoose
